@@ -1,0 +1,18 @@
+import com.redislabs.modules.rejson.*;
+
+JReJSON client = new JReJSON("localhost", 6379);
+
+client.set("foo", "bar");
+String s0 = (String) client.get("foo");
+
+
+String s1 = (String) client.get("foo", new Path("."));
+String s2 = (String) client.get("foo", Path.ROOT_PATH);
+
+
+client.set("obj", new Object());             
+client.set("obj", null, new Path(".zilch"));
+Path p = new Path(".whatevs");
+client.set("obj", true, p);
+client.set("obj", 42, p);
+client.del("obj", p);                
